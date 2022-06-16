@@ -1,0 +1,45 @@
+{
+  "post-offices": 7,
+  "paths": [
+    {
+      "from": 0,
+      "to": 1,
+      "cost": 70
+    },
+    {
+      "from": 0,
+      "to": 2,
+      "cost": 60
+    },
+    {
+      "from": 1,
+      "to": 4,
+      "cost": 50
+    },
+    {
+      "from": 1,
+      "to": 5,
+      "cost": 50
+    },
+    {
+      "from": 4,
+      "to": 2,
+      "cost": 70
+    },
+    {
+      "from": 4,
+      "to": 3,
+      "cost": 80
+    },
+    {
+      "from": 4,
+      "to": 7,
+      "cost": 40
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "cost": 60
+    }
+  ]
+}
