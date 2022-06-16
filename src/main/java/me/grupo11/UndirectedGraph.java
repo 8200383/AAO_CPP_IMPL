@@ -32,4 +32,19 @@ public class UndirectedGraph implements Graph {
         return true;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder matrix = new StringBuilder();
+
+        for (int i = 0; i < this.adjacencyMatrix.length; i++) {
+            matrix.append("[").append(i).append("] ");
+            for (int j = 0; j < this.adjacencyMatrix.length; j++) {
+                matrix.append(this.adjacencyMatrix[i][j]).append(" | ");
+            }
+            matrix.append("\n");
+        }
+
+
+        return "UndirectedGraph{\n" + matrix + "}";
+    }
 }

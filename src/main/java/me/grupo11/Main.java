@@ -11,6 +11,6 @@ public class Main {
                 .importJson("graph.json")
                 .buildUndirectedGraph();
 
-
+        System.out.println(graph);
     }
 }
