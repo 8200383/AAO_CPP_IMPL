@@ -11,6 +11,8 @@ public class Main {
                 .importJson("graph.json")
                 .buildUndirectedGraph();
 
+        new ChinesePostmanAlgorithm(graph);
+
         System.out.println(graph);
     }
 }

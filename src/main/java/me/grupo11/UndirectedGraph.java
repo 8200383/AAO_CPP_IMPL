@@ -1,5 +1,8 @@
 package me.grupo11;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UndirectedGraph implements Graph {
     private final int[][] adjacencyMatrix;
 
@@ -14,9 +17,14 @@ public class UndirectedGraph implements Graph {
     }
 
     @Override
-    public void addEdge(int posA, int posB, int weight) {
-        adjacencyMatrix[posA][posB] = weight;
-        adjacencyMatrix[posB][posB] = weight;
+    public void addEdge(int x, int y, int weight) {
+        adjacencyMatrix[x][y] = weight;
+        adjacencyMatrix[y][x] = weight;
+    }
+
+    @Override
+    public int size() {
+        return this.adjacencyMatrix.length;
     }
 
     @Override
@@ -30,6 +38,19 @@ public class UndirectedGraph implements Graph {
         }
 
         return true;
+    }
+
+    @Override
+    public List<Integer> getNeighbors(int x) {
+        ArrayList<Integer> neighbors = new ArrayList<>();
+
+        for (int i = 0; i < this.adjacencyMatrix.length; i++) {
+            if (this.adjacencyMatrix[x][i] != -1) {
+                neighbors.add(i);
+            }
+        }
+
+        return neighbors;
     }
 
     @Override

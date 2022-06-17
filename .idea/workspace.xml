@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db2a807-29dc-448c-b79e-ce66be38d0fc" name="Changes" comment="Add ToString and Cleanup">
+    <list default="true" id="4db2a807-29dc-448c-b79e-ce66be38d0fc" name="Changes" comment="Update Idea Settings">
+      <change afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/ChinesePostmanAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/Graph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/QuickChartService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/UndirectedGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/UndirectedGraph.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,15 +42,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/aimproxy/IdeaProjects/cpp/libs",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.JSON"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/aimproxy/IdeaProjects/cpp/libs&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.JSON&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/libs" />
@@ -85,7 +87,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1655396559365</updated>
-      <workItem from="1655396563463" duration="9939000" />
+      <workItem from="1655396563463" duration="9966000" />
+      <workItem from="1655483095491" duration="3150000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1655403481457</created>
@@ -108,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655411685727</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Update Idea Settings">
+      <created>1655412038798</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1655412038798</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,7 +141,8 @@
     <MESSAGE value="First Commit" />
     <MESSAGE value="Construct Graph from Json file" />
     <MESSAGE value="Add ToString and Cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add ToString and Cleanup" />
+    <MESSAGE value="Update Idea Settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Idea Settings" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
