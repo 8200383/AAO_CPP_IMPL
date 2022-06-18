@@ -31,5 +31,7 @@ public interface GraphADT {
 
     Iterator<Integer> getPostmanCycle();
 
+    Iterator<Integer> iteratorShortestPath(int x, int y);
+
     String plot(boolean download);
 }

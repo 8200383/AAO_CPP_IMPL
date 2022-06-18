@@ -15,6 +15,10 @@ public class CPP implements GraphADT {
         }
     }
 
+    private boolean indexIsValid(int index) {
+        return (index < this.adjacencyMatrix.length) && (index >= 0);
+    }
+
     @Override
     public void addEdge(int x, int y, int weight) {
         this.adjacencyMatrix[x][y] = weight;
@@ -98,6 +102,57 @@ public class CPP implements GraphADT {
         }
 
         return this.getEulerianTrailOrCycle();
+    }
+
+    public Iterator<Integer> iteratorShortestPath(int x, int y) {
+        int index = x;
+        int[] predecessor = new int[this.adjacencyMatrix.length];
+        Queue<Integer> traversalQueue = new LinkedList<>();
+        List<Integer> resultList = new LinkedList<>();
+
+        if (!indexIsValid(x) || !indexIsValid(y) || x == y) {
+            return Collections.emptyIterator();
+        }
+
+        boolean[] visited = new boolean[this.adjacencyMatrix.length];
+        for (int i = 0; i < this.adjacencyMatrix.length; i++)
+            visited[i] = false;
+
+        traversalQueue.add(x);
+        visited[x] = true;
+        predecessor[x] = -1;
+
+        while (!traversalQueue.isEmpty() && (index != y)) {
+            index = traversalQueue.remove();
+
+            for (int i = 0; i < this.adjacencyMatrix.length; i++) {
+                if (this.adjacencyMatrix[index][i] != -1 && !visited[i]) {
+                    predecessor[i] = index;
+                    traversalQueue.add(i);
+                    visited[i] = true;
+                }
+            }
+        }
+
+        // no path must have been found
+        if (index != y) {
+            return Collections.emptyIterator();
+        }
+
+        Stack<Integer> stack = new Stack<>();
+        index = y;
+        stack.push(index);
+
+        do {
+            index = predecessor[index];
+            stack.push(index);
+        } while (index != x);
+
+        while (!stack.isEmpty()) {
+            resultList.add(stack.pop());
+        }
+
+        return resultList.iterator();
     }
 
     @Override
