@@ -14,7 +14,7 @@ public interface GraphADT {
      * Find paths that are dead-ends.
      * We know we have to double them, since they are all order 1.
      *
-     * @return List<Integer> Return a list of dead-ended edges.
+     * @return List<Integer>
      */
     List<Integer> getSingleNodes();
 
@@ -31,6 +31,12 @@ public interface GraphADT {
 
     Iterator<Integer> getPostmanCycle();
 
+    /**
+     * Returns an iterator that contains the shortest path between
+     * the two vertices.
+     *
+     * @return Iterator<Integer>
+     */
     Iterator<Integer> iteratorShortestPath(int x, int y);
 
     String plot(boolean download);
