@@ -1,0 +1,30 @@
+{
+  "post-offices": 4,
+  "paths": [
+    {
+      "from": 0,
+      "to": 1,
+      "cost": 70
+    },
+    {
+      "from": 1,
+      "to": 2,
+      "cost": 20
+    },
+    {
+      "from": 2,
+      "to": 3,
+      "cost": 30
+    },
+    {
+      "from": 3,
+      "to": 0,
+      "cost": 10
+    },
+    {
+      "from": 3,
+      "to": 4,
+      "cost": 40
+    }
+  ]
+}
