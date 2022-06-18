@@ -4,10 +4,21 @@ import java.util.Iterator;
 import java.util.List;
 
 public interface GraphADT {
+    /**
+     * Inserts an edge between two vertices of this graph.
+     */
     void addEdge(int x, int y, int weight);
 
+    /**
+     * Returns the number of vertices in this graph.
+     */
     int size();
 
+    /**
+     * Returns true if this graph is connected, false otherwise.
+     *
+     * @return boolean
+     */
     boolean isConnected();
 
     /**
