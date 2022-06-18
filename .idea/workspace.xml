@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db2a807-29dc-448c-b79e-ce66be38d0fc" name="Changes" comment="Add JavaDoc to iteratorShortestPath">
+    <list default="true" id="4db2a807-29dc-448c-b79e-ce66be38d0fc" name="Changes" comment="Remove already assigned value">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/GraphADT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/GraphADT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eulerian.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/eulerian.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graph.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/random.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/semi-eulerian.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/semi-eulerian.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/GraphBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/GraphBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +58,7 @@
       <recent name="$PROJECT_DIR$/libs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -84,7 +90,7 @@
       <workItem from="1655550101280" duration="1862000" />
       <workItem from="1655559591017" duration="599000" />
       <workItem from="1655566988694" duration="2979000" />
-      <workItem from="1655578317864" duration="4240000" />
+      <workItem from="1655578317864" duration="5216000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1655403481457</created>
@@ -163,7 +169,28 @@
       <option name="project" value="LOCAL" />
       <updated>1655582533174</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Add more JavaDoc">
+      <created>1655582655105</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1655582655105</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Change method definition to iterator* + Add TP.pdf">
+      <created>1655583019394</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1655583019394</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Remove already assigned value">
+      <created>1655583208816</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1655583208816</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,7 +221,10 @@
     <MESSAGE value="Add SemiEulerian Graph" />
     <MESSAGE value="Add iteratorShortestPath" />
     <MESSAGE value="Add JavaDoc to iteratorShortestPath" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add JavaDoc to iteratorShortestPath" />
+    <MESSAGE value="Add more JavaDoc" />
+    <MESSAGE value="Change method definition to iterator* + Add TP.pdf" />
+    <MESSAGE value="Remove already assigned value" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove already assigned value" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
