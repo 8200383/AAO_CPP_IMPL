@@ -7,11 +7,9 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException, ParseException {
 
-        Graph graph = new GraphBuilder()
-                .importJson("graph.json")
+        GraphADT graph = new GraphBuilder()
+                .importJson("eulerian.json")
                 .buildUndirectedGraph();
-
-        new ChinesePostmanAlgorithm(graph);
 
         System.out.println(graph);
     }
