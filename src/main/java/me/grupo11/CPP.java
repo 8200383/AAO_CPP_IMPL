@@ -140,8 +140,7 @@ public class CPP implements GraphADT {
         }
 
         Stack<Integer> stack = new Stack<>();
-        index = y;
-        stack.push(index);
+        stack.push(y);
 
         do {
             index = predecessor[index];
