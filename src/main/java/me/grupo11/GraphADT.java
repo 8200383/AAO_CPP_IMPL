@@ -38,9 +38,9 @@ public interface GraphADT {
      *
      * @return Iterable<Integer>
      */
-    Iterator<Integer> getEulerianTrailOrCycle();
+    Iterator<Integer> iteratorEulerianTrailOrCycle();
 
-    Iterator<Integer> getPostmanCycle();
+    Iterator<Integer> iteratorPostmanCycle();
 
     /**
      * Returns an iterator that contains the shortest path between

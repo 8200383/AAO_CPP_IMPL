@@ -87,12 +87,12 @@ public class CPP implements GraphADT {
     }
 
     @Override
-    public Iterator<Integer> getEulerianTrailOrCycle() {
+    public Iterator<Integer> iteratorEulerianTrailOrCycle() {
         return Collections.emptyIterator();
     }
 
     @Override
-    public Iterator<Integer> getPostmanCycle() {
+    public Iterator<Integer> iteratorPostmanCycle() {
         if (!isEulerian()) {
             // Add necessary paths to the graph such that it becomes Eulerian.
 
@@ -101,7 +101,7 @@ public class CPP implements GraphADT {
             // Double our dead-ends
         }
 
-        return this.getEulerianTrailOrCycle();
+        return this.iteratorEulerianTrailOrCycle();
     }
 
     public Iterator<Integer> iteratorShortestPath(int x, int y) {
