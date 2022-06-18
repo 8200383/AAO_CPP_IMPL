@@ -21,6 +21,13 @@ public class Main {
             System.out.println(shortestPath.next());
         }
 
+        System.out.println("------------ Eulerian Trail Or Cycle ------------");
+        Iterator<Integer> eulerianCycle = graph.iteratorEulerianTrailOrCycle();
+        while (eulerianCycle.hasNext()) {
+            System.out.println(eulerianCycle.next());
+        }
+        System.out.println("-------------------------------------------------");
+
         System.out.println(graph);
     }
 }
