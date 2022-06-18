@@ -29,7 +29,7 @@ public class CPP implements GraphADT {
     @Override
     public boolean isConnected() {
         for (int i = 0; i < this.adjacencyMatrix.length; i++) {
-            for (int j = 0; j < this.adjacencyMatrix.length; j++) {
+            for (int j = 0; j < i; j++) {
                 if (this.adjacencyMatrix[i][j] != this.adjacencyMatrix[j][i]) {
                     return false;
                 }
