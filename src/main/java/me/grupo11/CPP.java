@@ -6,6 +6,25 @@ public class CPP implements GraphADT {
     private final int[][] adjacencyMatrix;
     private int edgeNum;
 
+    private static class Edge {
+        private final int v;
+        private final int w;
+        private boolean isUsed;
+
+        public Edge(int v, int w) {
+            this.v = v;
+            this.w = w;
+            isUsed = false;
+        }
+
+        // returns the other vertex of the edge
+        public int other(int vertex) {
+            if (vertex == v) return w;
+            else if (vertex == w) return v;
+            else throw new IllegalArgumentException("Illegal endpoint");
+        }
+    }
+
     public CPP(int vertices) {
         this.adjacencyMatrix = new int[vertices][vertices];
         this.edgeNum = 0;
@@ -158,25 +177,6 @@ public class CPP implements GraphADT {
             if (this.getNeighbors(v).size() > 0)
                 return v;
         return -1;
-    }
-
-    private static class Edge {
-        private final int v;
-        private final int w;
-        private boolean isUsed;
-
-        public Edge(int v, int w) {
-            this.v = v;
-            this.w = w;
-            isUsed = false;
-        }
-
-        // returns the other vertex of the edge
-        public int other(int vertex) {
-            if (vertex == v) return w;
-            else if (vertex == w) return v;
-            else throw new IllegalArgumentException("Illegal endpoint");
-        }
     }
 
     @Override
