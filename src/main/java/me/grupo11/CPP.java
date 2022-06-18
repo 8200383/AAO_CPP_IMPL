@@ -16,7 +16,7 @@ public class CPP implements GraphADT {
     }
 
     private boolean indexIsValid(int index) {
-        return (index < this.adjacencyMatrix.length) && (index >= 0);
+        return index < this.adjacencyMatrix.length && index >= 0;
     }
 
     @Override
