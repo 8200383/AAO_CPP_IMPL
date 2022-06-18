@@ -102,7 +102,17 @@ public class CPP implements GraphADT {
 
     @Override
     public String plot() {
-        return null;
+        StringBuilder graphLink = new StringBuilder("https://quickchart.io/graphviz?graph=graph{");
+        for (int i = 0; i < this.adjacencyMatrix.length; i++) {
+            for (int j = 0; j <= i; j++) {
+                if (this.adjacencyMatrix[i][j] != -1) {
+                    graphLink.append(j).append("--").append(i).append(';');
+                }
+            }
+        }
+
+        graphLink.append('}');
+        return graphLink.toString();
     }
 
     @Override
