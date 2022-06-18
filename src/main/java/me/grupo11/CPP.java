@@ -101,18 +101,23 @@ public class CPP implements GraphADT {
     }
 
     @Override
-    public String plot() {
-        StringBuilder graphLink = new StringBuilder("https://quickchart.io/graphviz?graph=graph{");
+    public String plot(boolean download) {
+        String url = "https://quickchart.io/graphviz?graph=graph{";
+        StringBuilder graph = new StringBuilder(url);
+
         for (int i = 0; i < this.adjacencyMatrix.length; i++) {
             for (int j = 0; j <= i; j++) {
                 if (this.adjacencyMatrix[i][j] != -1) {
-                    graphLink.append(j).append("--").append(i).append(';');
+                    graph.append(j).append("--").append(i).append(';');
                 }
             }
         }
 
-        graphLink.append('}');
-        return graphLink.toString();
+        graph.append('}');
+
+        if (download) graph.append("&format=png");
+
+        return graph.toString();
     }
 
     @Override

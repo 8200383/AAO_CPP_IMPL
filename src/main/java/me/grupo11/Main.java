@@ -11,7 +11,7 @@ public class Main {
                 .importJson("eulerian.json")
                 .buildUndirectedGraph();
 
-        System.out.println(graph.plot());
+        System.out.println(graph.plot(false));
         System.out.println(graph);
     }
 }
