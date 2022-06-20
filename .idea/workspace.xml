@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db2a807-29dc-448c-b79e-ce66be38d0fc" name="Changes" comment="Remove already assigned value">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="4db2a807-29dc-448c-b79e-ce66be38d0fc" name="Changes" comment="Simplify parenthesis">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fan-eulerian.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eulerian.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/eulerian.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graph.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/random.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/semi-eulerian.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/semi-eulerian.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/GraphBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/GraphBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/CPP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/CPP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/GraphADT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/GraphADT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,15 +41,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/aimproxy/IdeaProjects/cpp",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.JSON"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/aimproxy/IdeaProjects/cpp&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.JSON&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -90,7 +90,9 @@
       <workItem from="1655550101280" duration="1862000" />
       <workItem from="1655559591017" duration="599000" />
       <workItem from="1655566988694" duration="2979000" />
-      <workItem from="1655578317864" duration="5216000" />
+      <workItem from="1655578317864" duration="5352000" />
+      <workItem from="1655605205669" duration="2909000" />
+      <workItem from="1655724637650" duration="1220000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1655403481457</created>
@@ -190,7 +192,21 @@
       <option name="project" value="LOCAL" />
       <updated>1655583208816</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Import Json through getResourceAsStream">
+      <created>1655583603802</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1655583603802</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Simplify parenthesis">
+      <created>1655583680138</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1655583680138</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,7 +240,9 @@
     <MESSAGE value="Add more JavaDoc" />
     <MESSAGE value="Change method definition to iterator* + Add TP.pdf" />
     <MESSAGE value="Remove already assigned value" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove already assigned value" />
+    <MESSAGE value="Import Json through getResourceAsStream" />
+    <MESSAGE value="Simplify parenthesis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simplify parenthesis" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

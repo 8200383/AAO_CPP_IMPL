@@ -12,7 +12,12 @@ public interface GraphADT {
     /**
      * Returns the number of vertices in this graph.
      */
-    int size();
+    int getVerticesCount();
+
+    /**
+     * Returns the number of edges in this graph.
+     */
+    int getEdgesCount();
 
     /**
      * Returns true if this graph is connected, false otherwise.
@@ -29,8 +34,20 @@ public interface GraphADT {
      */
     List<Integer> getSingleNodes();
 
+    /**
+     * Returns a list of neighbors of vertices
+     *
+     * @return List<Integer>
+     */
     List<Integer> getNeighbors(int x);
 
+    /**
+     * Returns true if the input graph is an Eulerian graph,
+     * i.e there exists a closed walk in the graph that uses each edge exactly once.
+     * It returns false otherwise.
+     *
+     * @return Iterator<Integer>
+     */
     boolean isEulerian();
 
     /**
@@ -40,11 +57,16 @@ public interface GraphADT {
      */
     Iterator<Integer> iteratorEulerianTrailOrCycle();
 
+    /**
+     * Returns an iterator that contains shortest path
+     * or circuity that visits every edge of the graph at least once.
+     *
+     * @return Iterator<Integer>
+     */
     Iterator<Integer> iteratorPostmanCycle();
 
     /**
-     * Returns an iterator that contains the shortest path between
-     * the two vertices.
+     * Returns an iterator that contains the shortest path between the two vertices.
      *
      * @return Iterator<Integer>
      */

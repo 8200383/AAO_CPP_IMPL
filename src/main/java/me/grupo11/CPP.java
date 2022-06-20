@@ -4,30 +4,14 @@ import java.util.*;
 
 public class CPP implements GraphADT {
     private final int[][] adjacencyMatrix;
-    private int edgeNum;
-
-    private static class Edge {
-        private final int v;
-        private final int w;
-        private boolean isUsed;
-
-        public Edge(int v, int w) {
-            this.v = v;
-            this.w = w;
-            isUsed = false;
-        }
-
-        // returns the other vertex of the edge
-        public int other(int vertex) {
-            if (vertex == v) return w;
-            else if (vertex == w) return v;
-            else throw new IllegalArgumentException("Illegal endpoint");
-        }
-    }
+    private int vertices;
+    private int edges;
 
     public CPP(int vertices) {
         this.adjacencyMatrix = new int[vertices][vertices];
-        this.edgeNum = 0;
+        this.vertices = vertices;
+        this.edges = 0;
+
         for (int i = 0; i < this.adjacencyMatrix.length; i++) {
             for (int j = 0; j < this.adjacencyMatrix.length; j++) {
                 this.adjacencyMatrix[i][j] = -1;
@@ -39,7 +23,9 @@ public class CPP implements GraphADT {
     public void addEdge(int x, int y, int weight) {
         this.adjacencyMatrix[x][y] = weight;
         this.adjacencyMatrix[y][x] = weight;
-        edgeNum++;
+
+        this.edges += 2;
+        this.vertices++;
     }
 
     private boolean indexIsValid(int index) {
@@ -47,73 +33,13 @@ public class CPP implements GraphADT {
     }
 
     @Override
-    public Iterator<Integer> iteratorEulerianTrailOrCycle() {
-        Stack<Integer> cycle;
-        // must have at least one edge
-        // must have at least one edge
-        if (this.edgeNum == 0) return Collections.emptyIterator();
-
-        // necessary condition: all vertices have even degree
-        // (this test is needed or it might find an Eulerian path instead of cycle)
-        for (int v = 0; v < this.size(); v++)
-            if (this.getNeighbors(v).size() % 2 != 0)
-                return Collections.emptyIterator();
-
-        // create local view of adjacency lists, to iterate one vertex at a time
-        // the helper Edge data type is used to avoid exploring both copies of an edge v-w
-        Queue<Edge>[] adj = (Queue<Edge>[]) new Queue[this.size()];
-        for (int v = 0; v < this.size(); v++)
-            adj[v] = new LinkedList<>();
-
-        for (int v = 0; v < this.size(); v++) {
-            int selfLoops = 0;
-            for (int w : this.getNeighbors(v)) {
-                // careful with self loops
-                if (v == w) {
-                    if (selfLoops % 2 == 0) {
-                        Edge e = new Edge(v, w);
-                        adj[v].add(e);
-                        adj[w].add(e);
-                    }
-                    selfLoops++;
-                } else if (v < w) {
-                    Edge e = new Edge(v, w);
-                    adj[v].add(e);
-                    adj[w].add(e);
-                }
-            }
-        }
-
-        // initialize stack with any non-isolated vertex
-        int s = nonIsolatedVertex();
-        Stack<Integer> stack = new Stack<>();
-        stack.push(s);
-
-        // greedily search through edges in iterative DFS style
-        cycle = new Stack<>();
-        while (!stack.isEmpty()) {
-            int v = stack.pop();
-            while (!adj[v].isEmpty()) {
-                Edge edge = adj[v].remove();
-                if (edge.isUsed) continue;
-                edge.isUsed = true;
-                stack.push(v);
-                v = edge.other(v);
-            }
-            // push vertex with no more leaving edges to cycle
-            cycle.push(v);
-        }
-
-        // check if all edges are used
-        if (cycle.size() != this.edgeNum + 1)
-            return Collections.emptyIterator();
-
-        return cycle.iterator();
+    public int getVerticesCount() {
+        return this.vertices;
     }
 
     @Override
-    public int size() {
-        return this.adjacencyMatrix.length;
+    public int getEdgesCount() {
+        return this.edges;
     }
 
     @Override
@@ -134,7 +60,7 @@ public class CPP implements GraphADT {
         List<Integer> neighbors = new ArrayList<>();
 
         for (int i = 0; i < this.adjacencyMatrix.length; i++) {
-            if (this.adjacencyMatrix[x][i] != -1) {
+            if (this.adjacencyMatrix[x][i] != -1 && this.adjacencyMatrix[i][x] != -1) {
                 neighbors.add(i);
             }
         }
@@ -162,9 +88,7 @@ public class CPP implements GraphADT {
         // Count vertices with odd degree
         int odd = 0;
         for (int i = 0; i < this.adjacencyMatrix.length; i++) {
-            List<Integer> neighbours = this.getNeighbors(i);
-
-            if (neighbours.size() % 2 != 0) {
+            if (this.getNeighbors(i).size() % 2 != 0) {
                 odd++;
             }
         }
@@ -172,11 +96,9 @@ public class CPP implements GraphADT {
         return odd < 2;
     }
 
-    private int nonIsolatedVertex() {
-        for (int v = 0; v < this.size(); v++)
-            if (this.getNeighbors(v).size() > 0)
-                return v;
-        return -1;
+    @Override
+    public Iterator<Integer> iteratorEulerianTrailOrCycle() {
+        return Collections.emptyIterator();
     }
 
     @Override
@@ -244,7 +166,7 @@ public class CPP implements GraphADT {
 
     @Override
     public String plot(boolean download) {
-        String url = "https://quickchart.io/graphviz?graph=graph{";
+        String url = "https://quickchart.io/graphviz?layout=neato&graph=graph{";
         StringBuilder graph = new StringBuilder(url);
 
         for (int i = 0; i < this.adjacencyMatrix.length; i++) {
