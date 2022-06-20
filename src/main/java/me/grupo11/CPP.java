@@ -45,7 +45,7 @@ public class CPP implements GraphADT {
             Iterator<Integer> iterator = oddVertices.iterator();
             Integer v = iterator.next();
 
-            matchingList.set(i, getShortestPath(v, iterator.next()));
+            matchingList.set(i, this.getShortestPath(v, iterator.next()));
             removeIndex = ++index;
 
             List<Integer> currentShortestPath;
@@ -53,7 +53,7 @@ public class CPP implements GraphADT {
             while (iterator.hasNext()) {
 
                 Integer next = iterator.next();
-                currentShortestPath = getShortestPath(v, next);
+                currentShortestPath = this.getShortestPath(v, next);
                 index++;
 
                 if (currentShortestPath.size() < matchingList.get(i).size()) {
