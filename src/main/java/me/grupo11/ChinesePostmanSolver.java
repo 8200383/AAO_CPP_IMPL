@@ -90,9 +90,79 @@ public class ChinesePostmanSolver implements ChinesePostman {
         return odd < 2;
     }
 
-    @Override
+    private int nonIsolatedVertex() {
+        for (int v = 0; v < this.size(); v++)
+            if (this.graph.getNeighbors(v).size() > 0)
+                return v;
+        return -1;
+    }
+
+    private int size() {
+        return this.graph.getAdjacencyMatrix().length;
+    }
+
     public Iterator<Integer> iteratorEulerianTrailOrCycle() {
-        return Collections.emptyIterator();
+        Stack<Integer> cycle;
+        // must have at least one edge
+        // must have at least one edge
+        if (this.graph.getEdgesCount() == 0) return Collections.emptyIterator();
+
+        // necessary condition: all vertices have even degree
+        // (this test is needed or it might find an Eulerian path instead of cycle)
+        for (int v = 0; v < this.size(); v++)
+            if (this.graph.getNeighbors(v).size() % 2 != 0)
+                return Collections.emptyIterator();
+
+        // create local view of adjacency lists, to iterate one vertex at a time
+        // the helper Edge data type is used to avoid exploring both copies of an edge v-w
+        Queue<Edge>[] adj = (Queue<Edge>[]) new Queue[this.size()];
+        for (int v = 0; v < this.size(); v++)
+            adj[v] = new LinkedList<>();
+
+        for (int v = 0; v < this.size(); v++) {
+            int selfLoops = 0;
+            for (int w : this.graph.getNeighbors(v)) {
+                // careful with self loops
+                if (v == w) {
+                    if (selfLoops % 2 == 0) {
+                        Edge e = new Edge(v, w);
+                        adj[v].add(e);
+                        adj[w].add(e);
+                    }
+                    selfLoops++;
+                } else if (v < w) {
+                    Edge e = new Edge(v, w);
+                    adj[v].add(e);
+                    adj[w].add(e);
+                }
+            }
+        }
+
+        // initialize stack with any non-isolated vertex
+        int s = nonIsolatedVertex();
+        Stack<Integer> stack = new Stack<>();
+        stack.push(s);
+
+        // greedily search through edges in iterative DFS style
+        cycle = new Stack<>();
+        while (!stack.isEmpty()) {
+            int v = stack.pop();
+            while (!adj[v].isEmpty()) {
+                Edge edge = adj[v].remove();
+                if (edge.isUsed) continue;
+                edge.isUsed = true;
+                stack.push(v);
+                // v = edge.other(v); - Awaiting rewriting!
+            }
+            // push vertex with no more leaving edges to cycle
+            cycle.push(v);
+        }
+
+        // check if all edges are used
+        if (cycle.size() != this.graph.getEdgesCount() + 1)
+            return Collections.emptyIterator();
+
+        return cycle.iterator();
     }
 
     @Override

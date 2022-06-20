@@ -39,5 +39,8 @@ public interface Graph {
      */
     List<Edge<Integer, Integer>> getShortestPath(int x, int y);
 
+    public int[][] getAdjacencyMatrix();
+
     String plot(boolean download);
+
 }

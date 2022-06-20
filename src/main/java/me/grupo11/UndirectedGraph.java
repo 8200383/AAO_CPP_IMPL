@@ -20,6 +20,11 @@ public class UndirectedGraph implements Graph {
     }
 
     @Override
+    public int[][] getAdjacencyMatrix() {
+        return adjacencyMatrix;
+    }
+
+    @Override
     public void addEdge(int x, int y, int weight) {
         this.adjacencyMatrix[x][y] = weight;
         this.adjacencyMatrix[y][x] = weight;

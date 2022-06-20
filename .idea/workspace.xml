@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db2a807-29dc-448c-b79e-ce66be38d0fc" name="Changes" comment="Research and CleanUp">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="4db2a807-29dc-448c-b79e-ce66be38d0fc" name="Changes" comment="Re-Implementation of iteratorEulerialTrailOrCycle">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/CPP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/CPP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/ChinesePostmanSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/ChinesePostmanSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/grupo11/UndirectedGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/grupo11/UndirectedGraph.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +106,8 @@
       <workItem from="1655578317864" duration="5352000" />
       <workItem from="1655605205669" duration="2909000" />
       <workItem from="1655724637650" duration="2320000" />
-      <workItem from="1655738570949" duration="3773000" />
+      <workItem from="1655738570949" duration="4819000" />
+      <workItem from="1655763302570" duration="934000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1655403481457</created>
@@ -225,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655726111664</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Re-Implementation of iteratorEulerialTrailOrCycle">
+      <created>1655742469637</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1655742469637</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,7 +273,8 @@
     <MESSAGE value="Import Json through getResourceAsStream" />
     <MESSAGE value="Simplify parenthesis" />
     <MESSAGE value="Research and CleanUp" />
-    <option name="LAST_COMMIT_MESSAGE" value="Research and CleanUp" />
+    <MESSAGE value="Re-Implementation of iteratorEulerialTrailOrCycle" />
+    <option name="LAST_COMMIT_MESSAGE" value="Re-Implementation of iteratorEulerialTrailOrCycle" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
