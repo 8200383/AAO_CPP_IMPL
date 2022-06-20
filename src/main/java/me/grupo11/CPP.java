@@ -19,6 +19,41 @@ public class CPP implements GraphADT {
         }
     }
 
+    private List<List<Edge<Integer, Integer>>> getMinimumPerfectMatching(List<Integer> oddVertices) {
+
+        int n = oddVertices.size() / 2;
+
+        List<List<Edge<Integer, Integer>>> matchingList = new ArrayList<>(new ArrayList<>());
+
+        for (int i = 0; i < n; i++) {
+            int index = 0;
+            int removeIndex;
+            Iterator<Integer> iterator = oddVertices.iterator();
+            Integer v = iterator.next();
+
+            matchingList.set(i, this.getShortestPath(v, iterator.next()));
+            removeIndex = ++index;
+
+            List<Edge<Integer, Integer>> currentShortestPath;
+
+            while (iterator.hasNext()) {
+                Integer next = iterator.next();
+                currentShortestPath = this.getShortestPath(v, next);
+                index++;
+
+                if (currentShortestPath.size() < matchingList.get(i).size()) {
+                    matchingList.set(i, currentShortestPath);
+                    removeIndex = index;
+                }
+            }
+
+            oddVertices.remove(removeIndex);
+            oddVertices.remove(0);
+        }
+
+        return matchingList;
+    }
+
     @Override
     public void addEdge(int x, int y, int weight) {
         this.adjacencyMatrix[x][y] = weight;
@@ -32,41 +67,40 @@ public class CPP implements GraphADT {
         return index < this.adjacencyMatrix.length && index >= 0;
     }
 
-    private List<List<Integer>> getMinimumPerfectMatching(LinkedList<Integer> oddVertices) {
+    private void duplicateEdges(List<List<Edge<Integer, Integer>>> edges) {
+        Iterator<Edge<Integer, Integer>> matchIterator;
+        Edge<Integer, Integer> last;
+        Edge<Integer, Integer> current;
 
-        int n = oddVertices.size() / 2;
+        for (List<Edge<Integer, Integer>> match : edges) {
+            matchIterator = match.iterator();
+            last = matchIterator.next();
 
-        List<List<Integer>> matchingList = new ArrayList<>(new ArrayList<>());
-
-        for (int i = 0; i < n; i++) {
-
-            int index = 0;
-            int removeIndex;
-            Iterator<Integer> iterator = oddVertices.iterator();
-            Integer v = iterator.next();
-
-            matchingList.set(i, this.getShortestPath(v, iterator.next()));
-            removeIndex = ++index;
-
-            List<Integer> currentShortestPath;
-
-            while (iterator.hasNext()) {
-
-                Integer next = iterator.next();
-                currentShortestPath = this.getShortestPath(v, next);
-                index++;
-
-                if (currentShortestPath.size() < matchingList.get(i).size()) {
-                    matchingList.set(i, currentShortestPath);
-                    removeIndex = index;
-                }
+            while (matchIterator.hasNext()) {
+                current = matchIterator.next();
+                this.addEdge(last.vertex, current.vertex, current.weight);
+                last = current;
             }
+        }
+    }
 
-            oddVertices.remove(removeIndex);
-            oddVertices.removeFirst();
+    @Override
+    public Iterator<Integer> iteratorPostmanCycle() {
+
+        /*
+         * Make Eulerian (Python)
+         * https://github.com/supermitch/Chinese-Postman/blob/f07cecb4c937e2fd96eada37cee7a65aa9f32d79/chinesepostman/eularian.py
+         */
+
+        if (!isEulerian()) {
+            // Find dead-ends
+            List<Integer> singleNodes = this.getSingleNodes();
+
+            // Add necessary paths to the graph such that it becomes Eulerian
+            this.duplicateEdges(this.getMinimumPerfectMatching(singleNodes));
         }
 
-        return matchingList;
+        return this.iteratorEulerianTrailOrCycle();
     }
 
     @Override
@@ -138,55 +172,30 @@ public class CPP implements GraphADT {
         return Collections.emptyIterator();
     }
 
-    @Override
-    public Iterator<Integer> iteratorPostmanCycle() {
-
-        /*
-         * Make Eulerian (Python)
-         * https://github.com/supermitch/Chinese-Postman/blob/f07cecb4c937e2fd96eada37cee7a65aa9f32d79/chinesepostman/eularian.py
-         */
-
-        if (!isEulerian()) {
-            // Add necessary paths to the graph such that it becomes Eulerian.
-
-            List<Integer> singleNodes = this.getSingleNodes(); // Find dead-ends
-
-            // Building possible odd node pairs
-            // Finding pair solutions
-            // Building path sets
-            // Finding cheapest route with iteratorShortestPath
-            // Adding new edges
-
-            // Let it continue to iteratorEulerianTrailOrCycle
-        }
-
-        return this.iteratorEulerianTrailOrCycle();
-    }
-
-    public List<Integer> getShortestPath(int x, int y) {
-        int index = x;
-        int[] predecessor = new int[this.adjacencyMatrix.length];
+    public List<Edge<Integer, Integer>> getShortestPath(int x, int y) {
+        List<Edge<Integer, Integer>> predecessor = new LinkedList<>();
         Queue<Integer> traversalQueue = new LinkedList<>();
-        List<Integer> resultList = new LinkedList<>();
 
         if (!indexIsValid(x) || !indexIsValid(y) || x == y) {
             return Collections.emptyList();
         }
 
         boolean[] visited = new boolean[this.adjacencyMatrix.length];
-        for (int i = 0; i < this.adjacencyMatrix.length; i++)
+        for (int i = 0; i < this.adjacencyMatrix.length; i++) {
             visited[i] = false;
+        }
 
         traversalQueue.add(x);
         visited[x] = true;
-        predecessor[x] = -1;
+        predecessor.add(new Edge<>(x, 0));
 
+        int index = x;
         while (!traversalQueue.isEmpty() && (index != y)) {
             index = traversalQueue.remove();
 
             for (int i = 0; i < this.adjacencyMatrix.length; i++) {
                 if (this.adjacencyMatrix[index][i] != -1 && !visited[i]) {
-                    predecessor[i] = index;
+                    predecessor.add(new Edge<>(index, this.adjacencyMatrix[index][i]));
                     traversalQueue.add(i);
                     visited[i] = true;
                 }
@@ -198,19 +207,20 @@ public class CPP implements GraphADT {
             return Collections.emptyList();
         }
 
-        Stack<Integer> stack = new Stack<>();
-        stack.push(y);
+        int lastWeight = this.adjacencyMatrix[predecessor.get(index).vertex][y];
+        predecessor.add(new Edge<>(y, lastWeight));
 
-        do {
-            index = predecessor[index];
-            stack.push(index);
-        } while (index != x);
+        Collections.reverse(predecessor);
 
-        while (!stack.isEmpty()) {
-            resultList.add(stack.pop());
+        return predecessor;
+    }
+
+    record Edge<V extends Integer, W extends Integer>(V vertex, W weight) implements Comparable<V> {
+
+        @Override
+        public int compareTo(V comparable) {
+            return comparable.compareTo(vertex);
         }
-
-        return resultList;
     }
 
     @Override

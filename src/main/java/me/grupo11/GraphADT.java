@@ -66,11 +66,11 @@ public interface GraphADT {
     Iterator<Integer> iteratorPostmanCycle();
 
     /**
-     * Returns an iterator that contains the shortest path between the two vertices.
+     * Returns the shortest path between the two vertices.
      *
      * @return Iterator<Integer>
      */
-    Iterator<Integer> iteratorShortestPath(int x, int y);
+    List<CPP.Edge<Integer, Integer>> getShortestPath(int x, int y);
 
     String plot(boolean download);
 }
