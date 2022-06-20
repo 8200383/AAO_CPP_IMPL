@@ -24,7 +24,7 @@ public class CPP implements GraphADT {
         this.adjacencyMatrix[x][y] = weight;
         this.adjacencyMatrix[y][x] = weight;
 
-        this.edges += 2;
+        this.edges++;
         this.vertices++;
     }
 
@@ -96,9 +96,78 @@ public class CPP implements GraphADT {
         return odd < 2;
     }
 
-    @Override
+    private int nonIsolatedVertex() {
+        for (int v = 0; v < this.adjacencyMatrix.length; v++)
+            if (this.getNeighbors(v).size() > 0)
+                return v;
+        return -1;
+    }
+
     public Iterator<Integer> iteratorEulerianTrailOrCycle() {
-        return Collections.emptyIterator();
+        Stack<Integer> cycle;
+
+        // must have at least one edge
+        if (this.edges == 0) return Collections.emptyIterator();
+
+        // necessary condition: all vertices have even degree
+        // (this test is needed, otherwise it might find an Eulerian path instead of cycle)
+        for (int v = 0; v < this.adjacencyMatrix.length; v++) {
+            if (this.getNeighbors(v).size() % 2 != 0) {
+                return Collections.emptyIterator();
+            }
+        }
+
+        // create local view of adjacency lists, to iterate one vertex at a time
+        // the helper Edge data type is used to avoid exploring both copies of an edge v-w
+        Queue<Edge>[] adj = (Queue<Edge>[]) new Queue[this.adjacencyMatrix.length];
+        for (int v = 0; v < this.adjacencyMatrix.length; v++) {
+            adj[v] = new LinkedList<>();
+        }
+
+        for (int v = 0; v < this.adjacencyMatrix.length; v++) {
+            int selfLoops = 0;
+            for (int w : this.getNeighbors(v)) {
+                // careful with self loops
+                if (v == w) {
+                    if (selfLoops % 2 == 0) {
+                        Edge e = new Edge(v, w);
+                        adj[v].add(e);
+                        adj[w].add(e);
+                    }
+                    selfLoops++;
+                } else if (v < w) {
+                    Edge e = new Edge(v, w);
+                    adj[v].add(e);
+                    adj[w].add(e);
+                }
+            }
+        }
+
+        // initialize stack with any non-isolated vertex
+        int s = nonIsolatedVertex();
+        Stack<Integer> stack = new Stack<>();
+        stack.push(s);
+
+        // greedily search through edges in iterative DFS style
+        cycle = new Stack<>();
+        while (!stack.isEmpty()) {
+            int v = stack.pop();
+            while (!adj[v].isEmpty()) {
+                Edge edge = adj[v].remove();
+                if (edge.isUsed) continue;
+                edge.isUsed = true;
+                stack.push(v);
+                v = edge.other(v);
+            }
+            // push vertex with no more leaving edges to cycle
+            cycle.push(v);
+        }
+
+        // check if all edges are used
+        if (cycle.size() != this.edges + 1)
+            return Collections.emptyIterator();
+
+        return cycle.iterator();
     }
 
     @Override
@@ -117,13 +186,32 @@ public class CPP implements GraphADT {
             // Building possible odd node pairs
             // Finding pair solutions
             // Building path sets
-            // Finding cheapest route with iteratorShortestPath
+            // Finding the cheapest route with iteratorShortestPath
             // Adding new edges
 
             // Let it continue to iteratorEulerianTrailOrCycle
         }
 
         return this.iteratorEulerianTrailOrCycle();
+    }
+
+    private static class Edge {
+        private final int v;
+        private final int w;
+        private boolean isUsed;
+
+        public Edge(int v, int w) {
+            this.v = v;
+            this.w = w;
+            isUsed = false;
+        }
+
+        // returns the other vertex of the edge
+        public int other(int vertex) {
+            if (vertex == v) return w;
+            else if (vertex == w) return v;
+            else throw new IllegalArgumentException("Illegal endpoint");
+        }
     }
 
     public Iterator<Integer> iteratorShortestPath(int x, int y) {
