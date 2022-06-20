@@ -32,6 +32,43 @@ public class CPP implements GraphADT {
         return index < this.adjacencyMatrix.length && index >= 0;
     }
 
+    private List<List<Integer>> getMinimumPerfectMatching(LinkedList<Integer> oddVertices) {
+
+        int n = oddVertices.size() / 2;
+
+        List<List<Integer>> matchingList = new ArrayList<>(new ArrayList<>());
+
+        for (int i = 0; i < n; i++) {
+
+            int index = 0;
+            int removeIndex;
+            Iterator<Integer> iterator = oddVertices.iterator();
+            Integer v = iterator.next();
+
+            matchingList.set(i, getShortestPath(v, iterator.next()));
+            removeIndex = ++index;
+
+            List<Integer> currentShortestPath;
+
+            while (iterator.hasNext()) {
+
+                Integer next = iterator.next();
+                currentShortestPath = getShortestPath(v, next);
+                index++;
+
+                if (currentShortestPath.size() < matchingList.get(i).size()) {
+                    matchingList.set(i, currentShortestPath);
+                    removeIndex = index;
+                }
+            }
+
+            oddVertices.remove(removeIndex);
+            oddVertices.removeFirst();
+        }
+
+        return matchingList;
+    }
+
     @Override
     public int getVerticesCount() {
         return this.vertices;
@@ -126,14 +163,14 @@ public class CPP implements GraphADT {
         return this.iteratorEulerianTrailOrCycle();
     }
 
-    public Iterator<Integer> iteratorShortestPath(int x, int y) {
+    public List<Integer> getShortestPath(int x, int y) {
         int index = x;
         int[] predecessor = new int[this.adjacencyMatrix.length];
         Queue<Integer> traversalQueue = new LinkedList<>();
         List<Integer> resultList = new LinkedList<>();
 
         if (!indexIsValid(x) || !indexIsValid(y) || x == y) {
-            return Collections.emptyIterator();
+            return Collections.emptyList();
         }
 
         boolean[] visited = new boolean[this.adjacencyMatrix.length];
@@ -158,7 +195,7 @@ public class CPP implements GraphADT {
 
         // no path must have been found
         if (index != y) {
-            return Collections.emptyIterator();
+            return Collections.emptyList();
         }
 
         Stack<Integer> stack = new Stack<>();
@@ -173,7 +210,7 @@ public class CPP implements GraphADT {
             resultList.add(stack.pop());
         }
 
-        return resultList.iterator();
+        return resultList;
     }
 
     @Override
