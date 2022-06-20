@@ -31,8 +31,8 @@ public class GraphBuilder {
         return this;
     }
 
-    public GraphADT buildUndirectedGraph() {
-        GraphADT graph = new CPP(this.getIntOrDie(this.jsonObject, "post-offices") + 1);
+    public Graph buildUndirectedGraph() {
+        Graph graph = new UndirectedGraph(this.getIntOrDie(this.jsonObject, "post-offices") + 1);
 
         JSONArray paths = (JSONArray) this.jsonObject.get("paths");
 
