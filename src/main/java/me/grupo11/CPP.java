@@ -103,12 +103,24 @@ public class CPP implements GraphADT {
 
     @Override
     public Iterator<Integer> iteratorPostmanCycle() {
+
+        /*
+         * Make Eulerian (Python)
+         * https://github.com/supermitch/Chinese-Postman/blob/f07cecb4c937e2fd96eada37cee7a65aa9f32d79/chinesepostman/eularian.py
+         */
+
         if (!isEulerian()) {
             // Add necessary paths to the graph such that it becomes Eulerian.
 
             List<Integer> singleNodes = this.getSingleNodes(); // Find dead-ends
 
-            // Double our dead-ends
+            // Building possible odd node pairs
+            // Finding pair solutions
+            // Building path sets
+            // Finding cheapest route with iteratorShortestPath
+            // Adding new edges
+
+            // Let it continue to iteratorEulerianTrailOrCycle
         }
 
         return this.iteratorEulerianTrailOrCycle();
