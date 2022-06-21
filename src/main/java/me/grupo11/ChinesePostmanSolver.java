@@ -10,71 +10,6 @@ public class ChinesePostmanSolver implements ChinesePostman {
         this.graph = graph;
     }
 
-    private List<List<Edge<Integer>>> getMinimumPerfectMatching(List<Integer> oddVertices) {
-
-        int n = oddVertices.size() / 2;
-
-        List<List<Edge<Integer>>> matchingList = new ArrayList<>(new ArrayList<>());
-
-        for (int i = 0; i < n; i++) {
-            int index = 0;
-            int removeIndex;
-            Iterator<Integer> iterator = oddVertices.iterator();
-            Integer v = iterator.next();
-
-            matchingList.set(i, this.graph.getShortestPath(v, iterator.next()));
-            removeIndex = ++index;
-
-            List<Edge<Integer>> currentShortestPath;
-
-            while (iterator.hasNext()) {
-                Integer next = iterator.next();
-                currentShortestPath = this.graph.getShortestPath(v, next);
-                index++;
-
-                if (currentShortestPath.size() < matchingList.get(i).size()) {
-                    matchingList.set(i, currentShortestPath);
-                    removeIndex = index;
-                }
-            }
-
-            oddVertices.remove(removeIndex);
-            oddVertices.remove(0);
-        }
-
-        return matchingList;
-    }
-
-    private void duplicateEdges(List<List<Edge<Integer>>> edges) {
-        Iterator<Edge<Integer>> matchIterator;
-        Edge<Integer> last;
-        Edge<Integer> current;
-
-        for (List<Edge<Integer>> match : edges) {
-            matchIterator = match.iterator();
-            last = matchIterator.next();
-
-            while (matchIterator.hasNext()) {
-                current = matchIterator.next();
-                this.graph.addEdge(last.from, current.from, current.weight);
-                last = current;
-            }
-        }
-    }
-
-    @Override
-    public List<Integer> getSingleNodes() {
-        List<Integer> singleNodes = new LinkedList<>();
-
-        for (int i = 0; i < this.graph.getVerticesCount(); i++) {
-            if (this.graph.getNeighbors(i).size() == 1) {
-                singleNodes.add(i);
-            }
-        }
-
-        return singleNodes;
-    }
-
     @Override
     public boolean isEulerian() {
         if (!this.graph.isConnected()) return false;
@@ -136,6 +71,24 @@ public class ChinesePostmanSolver implements ChinesePostman {
         return this.iteratorEulerianTrailOrCycle();
     }
 
+    /**
+     * Find paths that are dead-ends.
+     * We know we have to double them, since they are all order 1.
+     *
+     * @return List<Integer>
+     */
+    private List<Integer> getSingleNodes() {
+        List<Integer> singleNodes = new LinkedList<>();
+
+        for (int i = 0; i < this.graph.getVerticesCount(); i++) {
+            if (this.graph.getNeighbors(i).size() == 1) {
+                singleNodes.add(i);
+            }
+        }
+
+        return singleNodes;
+    }
+
     private int getFirstNonIsolatedVertex() {
         for (int v = 0; v < this.graph.getVerticesCount(); v++) {
             if (this.graph.getNeighbors(v).size() > 1) {
@@ -180,6 +133,59 @@ public class ChinesePostmanSolver implements ChinesePostman {
         }
 
         return resultList.iterator();
+    }
+
+
+    private List<List<Edge<Integer>>> getMinimumPerfectMatching(List<Integer> oddVertices) {
+
+        int n = oddVertices.size() / 2;
+
+        List<List<Edge<Integer>>> matchingList = new ArrayList<>(new ArrayList<>());
+
+        for (int i = 0; i < n; i++) {
+            int index = 0;
+            int removeIndex;
+            Iterator<Integer> iterator = oddVertices.iterator();
+            Integer v = iterator.next();
+
+            matchingList.set(i, this.graph.getShortestPath(v, iterator.next()));
+            removeIndex = ++index;
+
+            List<Edge<Integer>> currentShortestPath;
+
+            while (iterator.hasNext()) {
+                Integer next = iterator.next();
+                currentShortestPath = this.graph.getShortestPath(v, next);
+                index++;
+
+                if (currentShortestPath.size() < matchingList.get(i).size()) {
+                    matchingList.set(i, currentShortestPath);
+                    removeIndex = index;
+                }
+            }
+
+            oddVertices.remove(removeIndex);
+            oddVertices.remove(0);
+        }
+
+        return matchingList;
+    }
+
+    private void duplicateEdges(List<List<Edge<Integer>>> edges) {
+        Iterator<Edge<Integer>> matchIterator;
+        Edge<Integer> last;
+        Edge<Integer> current;
+
+        for (List<Edge<Integer>> match : edges) {
+            matchIterator = match.iterator();
+            last = matchIterator.next();
+
+            while (matchIterator.hasNext()) {
+                current = matchIterator.next();
+                this.graph.addEdge(last.from, current.from, current.weight);
+                last = current;
+            }
+        }
     }
 
 }

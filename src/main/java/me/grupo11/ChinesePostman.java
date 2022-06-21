@@ -1,17 +1,8 @@
 package me.grupo11;
 
 import java.util.Iterator;
-import java.util.List;
 
 public interface ChinesePostman {
-
-    /**
-     * Find paths that are dead-ends.
-     * We know we have to double them, since they are all order 1.
-     *
-     * @return List<Integer>
-     */
-    List<Integer> getSingleNodes();
 
     /**
      * Returns true if the input graph is an Eulerian graph,
