@@ -54,12 +54,6 @@ public class ChinesePostmanSolver implements ChinesePostman {
 
     @Override
     public Iterator<Integer> iteratorPostmanCycle() {
-
-        /*
-         * Make Eulerian (Python)
-         * https://github.com/supermitch/Chinese-Postman/blob/f07cecb4c937e2fd96eada37cee7a65aa9f32d79/chinesepostman/eularian.py
-         */
-
         if (!isEulerian()) {
             // Find dead-ends
             List<Integer> singleNodes = this.getSingleNodes();
