@@ -49,7 +49,14 @@ public class ChinesePostmanSolver implements ChinesePostman {
             }
         }
 
-        return this.iteratorDFS(adjacencyMatrix, this.getFirstNonIsolatedVertex());
+        List<Integer> bfs = this.getBreadthFirstPath(adjacencyMatrix, this.getFirstNonIsolatedVertex());
+
+        // check if all edges are used
+        if (bfs.size() != this.graph.getEdgesCount() + 1) {
+            return Collections.emptyIterator();
+        }
+
+        return bfs.iterator();
     }
 
     @Override
@@ -93,7 +100,7 @@ public class ChinesePostmanSolver implements ChinesePostman {
         return -1;
     }
 
-    private Iterator<Integer> iteratorDFS(boolean[][] adjacencyMatrix, int startVertex) {
+    private List<Integer> getBreadthFirstPath(boolean[][] adjacencyMatrix, int startVertex) {
         Stack<Integer> traversalStack = new Stack<>();
         List<Integer> resultList = new LinkedList<>();
 
@@ -126,7 +133,7 @@ public class ChinesePostmanSolver implements ChinesePostman {
             }
         }
 
-        return resultList.iterator();
+        return resultList;
     }
 
 
