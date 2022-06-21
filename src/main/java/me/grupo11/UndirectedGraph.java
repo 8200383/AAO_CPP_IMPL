@@ -20,11 +20,6 @@ public class UndirectedGraph implements Graph {
     }
 
     @Override
-    public int[][] getAdjacencyMatrix() {
-        return adjacencyMatrix;
-    }
-
-    @Override
     public void addEdge(int x, int y, int weight) {
         this.adjacencyMatrix[x][y] = weight;
         this.adjacencyMatrix[y][x] = weight;
@@ -32,6 +27,16 @@ public class UndirectedGraph implements Graph {
         this.edges += 2;
         this.vertices++;
     }
+
+    @Override
+    public int getEdgeWeight(int x, int y) {
+        if (!indexIsValid(x) || !indexIsValid(y)) {
+            throw new IllegalArgumentException("(" + x + "," + y + ") is not a valid edge!");
+        }
+
+        return this.adjacencyMatrix[x][y];
+    }
+
 
     private boolean indexIsValid(int index) {
         return index < this.adjacencyMatrix.length && index >= 0;
@@ -73,8 +78,8 @@ public class UndirectedGraph implements Graph {
         return neighbors;
     }
 
-    public List<Edge<Integer, Integer>> getShortestPath(int x, int y) {
-        List<Edge<Integer, Integer>> predecessor = new LinkedList<>();
+    public List<Edge<Integer>> getShortestPath(int x, int y) {
+        List<Edge<Integer>> predecessor = new LinkedList<>();
         Queue<Integer> traversalQueue = new LinkedList<>();
 
         if (!indexIsValid(x) || !indexIsValid(y) || x == y) {
@@ -108,7 +113,7 @@ public class UndirectedGraph implements Graph {
             return Collections.emptyList();
         }
 
-        int lastWeight = this.adjacencyMatrix[predecessor.get(index).vertex][y];
+        int lastWeight = this.adjacencyMatrix[predecessor.get(index).from][y];
         predecessor.add(new Edge<>(y, lastWeight));
 
         Collections.reverse(predecessor);

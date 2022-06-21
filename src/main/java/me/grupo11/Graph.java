@@ -8,6 +8,8 @@ public interface Graph {
      */
     void addEdge(int x, int y, int weight);
 
+    int getEdgeWeight(int x, int y);
+
     /**
      * Returns the number of vertices in this graph.
      */
@@ -37,9 +39,7 @@ public interface Graph {
      *
      * @return Iterator<Integer>
      */
-    List<Edge<Integer, Integer>> getShortestPath(int x, int y);
-
-    public int[][] getAdjacencyMatrix();
+    List<Edge<Integer>> getShortestPath(int x, int y);
 
     String plot(boolean download);
 

@@ -10,11 +10,11 @@ public class ChinesePostmanSolver implements ChinesePostman {
         this.graph = graph;
     }
 
-    private List<List<Edge<Integer, Integer>>> getMinimumPerfectMatching(List<Integer> oddVertices) {
+    private List<List<Edge<Integer>>> getMinimumPerfectMatching(List<Integer> oddVertices) {
 
         int n = oddVertices.size() / 2;
 
-        List<List<Edge<Integer, Integer>>> matchingList = new ArrayList<>(new ArrayList<>());
+        List<List<Edge<Integer>>> matchingList = new ArrayList<>(new ArrayList<>());
 
         for (int i = 0; i < n; i++) {
             int index = 0;
@@ -25,7 +25,7 @@ public class ChinesePostmanSolver implements ChinesePostman {
             matchingList.set(i, this.graph.getShortestPath(v, iterator.next()));
             removeIndex = ++index;
 
-            List<Edge<Integer, Integer>> currentShortestPath;
+            List<Edge<Integer>> currentShortestPath;
 
             while (iterator.hasNext()) {
                 Integer next = iterator.next();
@@ -45,18 +45,18 @@ public class ChinesePostmanSolver implements ChinesePostman {
         return matchingList;
     }
 
-    private void duplicateEdges(List<List<Edge<Integer, Integer>>> edges) {
-        Iterator<Edge<Integer, Integer>> matchIterator;
-        Edge<Integer, Integer> last;
-        Edge<Integer, Integer> current;
+    private void duplicateEdges(List<List<Edge<Integer>>> edges) {
+        Iterator<Edge<Integer>> matchIterator;
+        Edge<Integer> last;
+        Edge<Integer> current;
 
-        for (List<Edge<Integer, Integer>> match : edges) {
+        for (List<Edge<Integer>> match : edges) {
             matchIterator = match.iterator();
             last = matchIterator.next();
 
             while (matchIterator.hasNext()) {
                 current = matchIterator.next();
-                this.graph.addEdge(last.vertex, current.vertex, current.weight);
+                this.graph.addEdge(last.from, current.from, current.weight);
                 last = current;
             }
         }
@@ -90,79 +90,31 @@ public class ChinesePostmanSolver implements ChinesePostman {
         return odd < 2;
     }
 
-    private int nonIsolatedVertex() {
-        for (int v = 0; v < this.size(); v++)
-            if (this.graph.getNeighbors(v).size() > 0)
-                return v;
-        return -1;
-    }
-
-    private int size() {
-        return this.graph.getAdjacencyMatrix().length;
-    }
-
     public Iterator<Integer> iteratorEulerianTrailOrCycle() {
-        Stack<Integer> cycle;
-        // must have at least one edge
-        // must have at least one edge
-        if (this.graph.getEdgesCount() == 0) return Collections.emptyIterator();
 
-        // necessary condition: all vertices have even degree
-        // (this test is needed or it might find an Eulerian path instead of cycle)
-        for (int v = 0; v < this.size(); v++)
-            if (this.graph.getNeighbors(v).size() % 2 != 0)
-                return Collections.emptyIterator();
+        boolean[][] adjacencyMatrix = new boolean[this.graph.getVerticesCount()][this.graph.getVerticesCount()];
+        for (int i = 0; i < this.graph.getVerticesCount(); i++) {
+            for (int j = 0; j < this.graph.getVerticesCount(); j++) {
+                adjacencyMatrix[i][j] = false;
+            }
+        }
 
-        // create local view of adjacency lists, to iterate one vertex at a time
-        // the helper Edge data type is used to avoid exploring both copies of an edge v-w
-        Queue<Edge>[] adj = (Queue<Edge>[]) new Queue[this.size()];
-        for (int v = 0; v < this.size(); v++)
-            adj[v] = new LinkedList<>();
-
-        for (int v = 0; v < this.size(); v++) {
+        for (int v = 0; v < this.graph.getVerticesCount(); v++) {
             int selfLoops = 0;
+
             for (int w : this.graph.getNeighbors(v)) {
-                // careful with self loops
                 if (v == w) {
                     if (selfLoops % 2 == 0) {
-                        Edge e = new Edge(v, w);
-                        adj[v].add(e);
-                        adj[w].add(e);
+                        adjacencyMatrix[v][w] = true;
                     }
                     selfLoops++;
                 } else if (v < w) {
-                    Edge e = new Edge(v, w);
-                    adj[v].add(e);
-                    adj[w].add(e);
+                    adjacencyMatrix[v][w] = true;
                 }
             }
         }
 
-        // initialize stack with any non-isolated vertex
-        int s = nonIsolatedVertex();
-        Stack<Integer> stack = new Stack<>();
-        stack.push(s);
-
-        // greedily search through edges in iterative DFS style
-        cycle = new Stack<>();
-        while (!stack.isEmpty()) {
-            int v = stack.pop();
-            while (!adj[v].isEmpty()) {
-                Edge edge = adj[v].remove();
-                if (edge.isUsed) continue;
-                edge.isUsed = true;
-                stack.push(v);
-                // v = edge.other(v); - Awaiting rewriting!
-            }
-            // push vertex with no more leaving edges to cycle
-            cycle.push(v);
-        }
-
-        // check if all edges are used
-        if (cycle.size() != this.graph.getEdgesCount() + 1)
-            return Collections.emptyIterator();
-
-        return cycle.iterator();
+        return this.iteratorDFS(adjacencyMatrix, this.getFirstNonIsolatedVertex());
     }
 
     @Override
@@ -182,6 +134,52 @@ public class ChinesePostmanSolver implements ChinesePostman {
         }
 
         return this.iteratorEulerianTrailOrCycle();
+    }
+
+    private int getFirstNonIsolatedVertex() {
+        for (int v = 0; v < this.graph.getVerticesCount(); v++) {
+            if (this.graph.getNeighbors(v).size() > 1) {
+                return v;
+            }
+        }
+
+        return -1;
+    }
+
+    private Iterator<Integer> iteratorDFS(boolean[][] adjacencyMatrix, int startVertex) {
+        Stack<Integer> traversalStack = new Stack<>();
+        List<Integer> resultList = new LinkedList<>();
+
+        boolean[] visited = new boolean[adjacencyMatrix.length];
+        for (int i = 0; i < adjacencyMatrix.length; i++) {
+            visited[i] = false;
+        }
+
+        traversalStack.push(startVertex);
+        resultList.add(startVertex);
+        visited[startVertex] = true;
+
+        while (!traversalStack.isEmpty()) {
+            int x = traversalStack.peek();
+            boolean found = false;
+
+            /* Find a vertex adjacent to x that has not been visited
+             and push it on the stack */
+            for (int i = 0; (i < adjacencyMatrix.length) && !found; i++) {
+                if (adjacencyMatrix[x][i] && !visited[i]) {
+                    traversalStack.push(i);
+                    resultList.add(i);
+                    visited[i] = true;
+                    found = true;
+                }
+            }
+
+            if (!found && !traversalStack.isEmpty()) {
+                traversalStack.pop();
+            }
+        }
+
+        return resultList.iterator();
     }
 
 }
